@@ -56,16 +56,29 @@ The FULL condition is detected when the next write pointer equals the read point
 
 After functional verification in Vivado using a task-based testbench, switching activity is captured through SAIF generation to enable realistic power analysis in downstream synthesis tools.
 
-
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// 16x8 Synchronous FIFO (Binary Pointer)
-// - Register-based memory
-// - Correct FULL/EMPTY detection
-// - Stable read data
+// Company: 
+// Engineer: 
+// 
+// Create Date: 25.02.2026 00:28:47
+// Design Name: 
+// Module Name: fifo
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
 //////////////////////////////////////////////////////////////////////////////////
 
-module fifo_16x8_binary_en (
+
+module fifo(
     input  wire        clk,
     input  wire        rst_n,
     input  wire        wr_en,
@@ -156,8 +169,6 @@ module fifo_16x8_binary_en (
 
 endmodule
 
-
-
 A task-based Verilog testbench is developed in Vivado to verify the functionality of the 16×8 synchronous FIFO under different operating conditions. The testbench instantiates the FIFO DUT and generates a periodic clock along with an active-low reset sequence to initialize the design.
 
 Reusable tasks such as fifo_write, fifo_read, fill_fifo, drain_fifo, and fifo_rw are created to simplify stimulus generation and improve readability. These tasks allow systematic verification of scenarios including partial writes and reads, full condition detection, empty condition detection, overflow attempts, underflow attempts, pointer wrap-around behavior, and simultaneous read/write operations.
@@ -165,17 +176,14 @@ Reusable tasks such as fifo_write, fifo_read, fill_fifo, drain_fifo, and fifo_rw
 During simulation, signal activity is monitored using $monitor to observe data flow and status flags in real time. After functional verification, the same simulation is used to generate a SAIF file capturing switching activity across the DUT hierarchy, which is later used for accurate power estimation during synthesis.
 the test bench is as follows.
 
-
-
-
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
 // 
-// Create Date: 24.02.2026 11:59:49
+// Create Date: 25.02.2026 00:29:17
 // Design Name: 
-// Module Name: tb_fifo_16x8_binary
+// Module Name: tb_fifo
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -190,8 +198,7 @@ the test bench is as follows.
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module tb_fifo_16x8_binary;
-
+module tb_fifo;
   parameter DW = 8;
 
   reg clk;
@@ -205,7 +212,7 @@ module tb_fifo_16x8_binary;
   wire empty;
 
   // DUT
-  fifo_16x8_binary_en dut (
+  fifo dut (
     .clk(clk),
     .rst_n(rst_n),
     .wr_en(wr_en),
@@ -306,10 +313,9 @@ module tb_fifo_16x8_binary;
 
 endmodule
 
-
-
 ➡️ After successful verification.
-<img width="1568" height="440" alt="Screenshot 2026-02-18 154905" src="https://github.com/user-attachments/assets/283f0ce5-1fb1-43cb-b51d-995be5b09aef" />
+<img width="1580" height="813" alt="Screenshot 2026-02-25 003525" src="https://github.com/user-attachments/assets/69e09362-f341-4035-b9a3-2e2d725256d4" />
+
 
 ## What is a SAIF file 
 
@@ -341,7 +347,9 @@ close_saif — Finalizes and saves the SAIF file.
 The wildcard * ensures that all internal signals of the DUT are monitored. The generated SAIF file is later used in synthesis or power analysis tools to estimate dynamic power based on real switching activity.the path to get the saif is is as mention below.
 
 C:\Users\user_name\fifo_16x8\fifo_16x8.sim\sim_1\behav\xsim
- below is the saif file that we use for the SAIF based power analysis.
+
+ the generated saif file for the above design, that we use for the SAIF based power analysis.
+ 
 (SAIFILE
    (SAIFVERSION "2.0")
    (DIRECTION "backward")
@@ -707,6 +715,8 @@ C:\Users\user_name\fifo_16x8\fifo_16x8.sim\sim_1\behav\xsim
    )
 )
 
+
+
 ## How we use SAIF in tools
 
 In synthesis or power analysis tools like Cadence Genus, the SAIF file is read and mapped to the design hierarchy. The tool uses the recorded switching activity along with capacitance and voltage information to compute dynamic power. Designers can then analyze reports to identify power hotspots and apply optimizations such as clock gating or logic restructuring,power gating other low power methodologies.
@@ -730,6 +740,7 @@ Verify power meets specification
 ### 2️ Genus Synthesis
 
 Cadene Genus is used to map RTL to standard cells with timing constraints applied via SDC. SAIF based synthesis is done to generate the PPA reports.Cadence Genus is an advanced logic synthesis tool used to convert RTL designs into optimized gate-level implementations while meeting timing, area, power, and testability requirements. It supports modern low-power methodologies such as power gating, multi-supply voltage domains, and clock gating, enabling designers to build energy-efficient ASICs and SoCs. Genus integrates Design for Test (DFT) capabilities to insert scan chains and improve test coverage, ensuring manufacturability and reliability. It also supports constraint-driven optimization, multi-corner multi-mode (MCMM) analysis, and switching activity-based power estimation using SAIF or VCD files. Overall, Genus plays a critical role in achieving low-power, high-performance, and testable digital designs before physical implementation tools like Innovus.
+
 # ==============================================================
 # Cadence Genus Common UI Setup File for FIFO.v
 # ==============================================================
@@ -822,7 +833,7 @@ if {[file exists $SAIF_FILE]} {
 }
 
 # ---- 6. Synthesis Options ----
-here we can do cpf,dft,multi_supply voltage and level shifter cell can be added based on over design synthis
+Here we can do cpf,dft,multi_supply voltage and level shifter cell can be added based on over design synthesis.
 
 # ---- 7. Synthesis Flow ----
 syn_gen
@@ -1467,7 +1478,8 @@ module sram(clk, rst, en, we, re, addr, din, dout);
   NOR2BX1 g5191(.AN (n_6), .B (addr[0]), .Y (n_178));
 endmodule
 
-![tulasi_4X8fifo](https://github.com/user-attachments/assets/e8085e2f-4832-4e7f-872d-0ea110599bee)
+![FIFO_BINARY](https://github.com/user-attachments/assets/aa86cd9f-c3cf-4bf1-bb8f-00c6f69fc328)
+
 
 
 2:SDC file
@@ -1531,6 +1543,8 @@ set_driving_cell -lib_cell INVX1 -library fast -pin "Y" [get_ports {din[0]}]
 set_clock_uncertainty -setup 0.01 [get_ports clk]
 set_clock_uncertainty -hold 0.01 [get_ports clk]
 
+The SDC (Synopsys Design Constraints) file generated by the Cadence Genus tool is important because it defines the timing, electrical, and operating conditions under which your SRAM design must function correctly. It specifies the clock characteristics such as period, waveform, uncertainty, and transition, which guide the synthesis tool to optimize the logic so that all paths meet setup and hold timing requirements. The file also sets input and output delays to model how signals interact with external components, ensuring realistic timing analysis. Constraints like driving cell definitions and maximum fanout help the tool estimate signal slew and loading accurately, leading to better gate sizing and buffering decisions. Additionally, clock gating checks and unit definitions ensure proper handling of low-power techniques and consistent interpretation of timing values across the design flow. Overall, this SDC acts as a contract between the design and the tools, enabling timing-driven synthesis and ensuring that the resulting netlist can achieve timing closure during place-and-route and operate reliably in silicon.
+
 ---
 
 ### 3️ Innovus
@@ -1554,6 +1568,57 @@ Innovus is significant because it bridges the gap between logical design and phy
 Innovus handles floorplanning to define chip size and block locations, power planning to create power grids, placement to position standard cells, clock tree synthesis to distribute the clock with minimal skew, routing to connect all nets, and post-route optimization to fix timing and signal integrity issues. Finally, it generates signoff files like "" Graphic Data System "" (GDSII) for tapeout.
 
 In Cadence Innovus, there are two main ways to use the tool: through scripting (using TCL commands) and through the graphical user interface (GUI). In the physical design flow, place-and-route (P&R) can be performed using the GUI, which provides a visual environment to manage and analyze the design. When starting a new project for the first time, it is necessary to set up all required input files such as the synthesized netlist, timing constraints, technology and cell libraries, and other supporting data. After launching the Innovus GUI, the user can navigate to the “File” menu and select the “Design Import” option, which opens a dialog window. In this window, all necessary files are specified and configured so that the tool can initialize the design database. we need to upload netlist file generated  Once the design is successfully imported, the user can proceed with floorplanning, placement, clock tree synthesis, routing, and subsequent physical design steps.
+
+	this are the below location of lef file avaiable at 45nm technology.
+"/home/install/FOUNDRY/digital/45nm/NangateOpenCellLibrary_v1.00_20080225/lef/FreePDK45_lib_v1.0.lef"
+"/home/install/FOUNDRY/digital/45nm/NangateOpenCellLibrary_v1.00_20080225/lef/FreePDK45_lib_v1.0.lef.orig"
+"/home/install/FOUNDRY/digital/45nm/NangateOpenCellLibrary_v1.00_20080225/lef/FreePDK45_lib_v1.0.MOD.lef"
+"/home/install/FOUNDRY/digital/45nm/dig/lef/gsclib045_macro.lef"
+"/home/install/FOUNDRY/digital/45nm/dig/lef/gsclib045_tech.lef"
+"/home/install/FOUNDRY/digital/45nm/LIBS/lef/pads.lef"
+"/home/install/FOUNDRY/digital/45nm/LIBS/lef/pdkIO.lef"
+this is the padio file design requried for our design.
+(globals 
+   version=1
+   io_order = clockwise
+   space = 5
+)
+
+(iopad
+
+    (left
+        (inst name="clk"   cell=PDI place_status=fixed)
+        (inst name="rst_n" cell=PDI place_status=fixed)
+        (inst name="wr_en" cell=PDI place_status=fixed)
+        (inst name="rd_en" cell=PDI place_status=fixed)
+    )
+
+    (top
+        (inst name="wdata[0]" cell=PDI place_status=fixed)
+        (inst name="wdata[1]" cell=PDI place_status=fixed)
+        (inst name="wdata[2]" cell=PDI place_status=fixed)
+        (inst name="wdata[3]" cell=PDI place_status=fixed)
+        (inst name="wdata[4]" cell=PDI place_status=fixed)
+        (inst name="wdata[5]" cell=PDI place_status=fixed)
+        (inst name="wdata[6]" cell=PDI place_status=fixed)
+        (inst name="wdata[7]" cell=PDI place_status=fixed)
+    )
+
+    (right
+        (inst name="rdata[0]" cell=PDO place_status=fixed)
+        (inst name="rdata[1]" cell=PDO place_status=fixed)
+        (inst name="rdata[2]" cell=PDO place_status=fixed)
+        (inst name="rdata[3]" cell=PDO place_status=fixed)
+        (inst name="rdata[4]" cell=PDO place_status=fixed)
+        (inst name="rdata[5]" cell=PDO place_status=fixed)
+        (inst name="rdata[6]" cell=PDO place_status=fixed)
+        (inst name="rdata[7]" cell=PDO place_status=fixed)
+
+        (inst name="full"  cell=PDO place_status=fixed)
+        (inst name="empty" cell=PDO place_status=fixed)
+    )
+
+)
 
 ###  Static Timing Analysis (MMMC)
 we must setup the mmmc analysis  to setup the 
