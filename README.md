@@ -55,7 +55,9 @@ The FIFO uses binary pointers with an extra MSB to detect wrap-around and genera
 The FULL condition is detected when the next write pointer equals the read pointer with the MSB inverted, indicating the buffer is full. The EMPTY condition occurs when write and read pointers are equal, indicating no data is available.
 
 After functional verification in Vivado using a task-based testbench, switching activity is captured through SAIF generation to enable realistic power analysis in downstream synthesis tools.
-``
+
+---
+```
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
@@ -170,6 +172,7 @@ module fifo(
 endmodule
 ```
 
+---
 A task-based Verilog testbench is developed in Vivado to verify the functionality of the 16×8 synchronous FIFO under different operating conditions. The testbench instantiates the FIFO DUT and generates a periodic clock along with an active-low reset sequence to initialize the design.
 
 Reusable tasks such as fifo_write, fifo_read, fill_fifo, drain_fifo, and fifo_rw are created to simplify stimulus generation and improve readability. These tasks allow systematic verification of scenarios including partial writes and reads, full condition detection, empty condition detection, overflow attempts, underflow attempts, pointer wrap-around behavior, and simultaneous read/write operations.
@@ -177,6 +180,9 @@ Reusable tasks such as fifo_write, fifo_read, fill_fifo, drain_fifo, and fifo_rw
 During simulation, signal activity is monitored using $monitor to observe data flow and status flags in real time. After functional verification, the same simulation is used to generate a SAIF file capturing switching activity across the DUT hierarchy, which is later used for accurate power estimation during synthesis.
 the test bench is as follows.
 
+---
+
+```
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
@@ -313,7 +319,8 @@ module tb_fifo;
   end
 
 endmodule
-
+```
+---
 ➡️ After successful verification.
 <img width="1580" height="813" alt="Screenshot 2026-02-25 003525" src="https://github.com/user-attachments/assets/69e09362-f341-4035-b9a3-2e2d725256d4" />
 
@@ -351,6 +358,8 @@ C:\Users\user_name\fifo_16x8\fifo_16x8.sim\sim_1\behav\xsim
 
  the generated saif file for the above design, that we use for the SAIF based power analysis.
  
+ ---
+ ```
 (SAIFILE
    (SAIFVERSION "2.0")
    (DIRECTION "backward")
@@ -715,8 +724,8 @@ C:\Users\user_name\fifo_16x8\fifo_16x8.sim\sim_1\behav\xsim
       )
    )
 )
-
-
+```
+---
 
 ## How we use SAIF in tools
 
@@ -742,6 +751,8 @@ Verify power meets specification
 
 Cadene Genus is used to map RTL to standard cells with timing constraints applied via SDC. SAIF based synthesis is done to generate the PPA reports.Cadence Genus is an advanced logic synthesis tool used to convert RTL designs into optimized gate-level implementations while meeting timing, area, power, and testability requirements. It supports modern low-power methodologies such as power gating, multi-supply voltage domains, and clock gating, enabling designers to build energy-efficient ASICs and SoCs. Genus integrates Design for Test (DFT) capabilities to insert scan chains and improve test coverage, ensuring manufacturability and reliability. It also supports constraint-driven optimization, multi-corner multi-mode (MCMM) analysis, and switching activity-based power estimation using SAIF or VCD files. Overall, Genus plays a critical role in achieving low-power, high-performance, and testable digital designs before physical implementation tools like Innovus.
 
+---
+```
 # ==============================================================
 # Cadence Genus Common UI Setup File for FIFO.v
 # ==============================================================
@@ -860,8 +871,10 @@ report_clock_gating -summary
 gui_show
 #run command
 # genus -lic_startup_options Joules_RTL_Power -files "/home/Mtech2413/verilog/multibit_fifo/mbff_setup.tcl"
+```
+---
 
-## sdc file design
+# sdc file design
 
 ## What is an SDC file 
 
@@ -896,6 +909,8 @@ The output delay commands like set_output_delay -max 1.0 for ports such as rdata
 SDC constraints are essential because they allow EDA tools to optimize and verify the design based on real system timing conditions rather than ideal assumptions. Accurate constraints ensure proper setup and hold timing analysis, guide buffer insertion and sizing, and help avoid timing violations after fabrication. Properly written SDC files are critical for achieving timing closure and ensuring reliable silicon performance. 
 the sdc script for the fifo design is as follows.
 
+---
+```
 create_clock -name clk -period 10 -waveform {0 5} [get_ports "clk"]
 set_clock_transition -rise 0.1 [get_clocks "clk"]
 set_clock_transition -fall 0.1 [get_clocks "clk"]
@@ -907,7 +922,8 @@ set_input_delay -max 1.0 [get_ports "wdata"] -clock [get_clocks "clk"]
 set_output_delay -max 1.0 [get_ports "rdata"] -clock [get_clocks "clk"]
 set_output_delay -max 1.0 [get_ports "full"] -clock [get_clocks "clk"]
 set_output_delay -max 1.0 [get_ports "empty"] -clock [get_clocks "clk"]
-
+```
+---
 ## ➡ Next: Result and Reports.
 1.netlist:
 
@@ -917,7 +933,9 @@ set_output_delay -max 1.0 [get_ports "empty"] -clock [get_clocks "clk"]
 
 // Verification Directory fv/sram 
 
-module sram(clk, rst, en, we, re, addr, din, dout);
+---
+```
+module syc_fifo(clk, rst, en, we, re, addr, din, dout);
   input clk, rst, en, we, re;
   input [3:0] addr;
   input [7:0] din;
@@ -1478,6 +1496,8 @@ module sram(clk, rst, en, we, re, addr, din, dout);
   NOR2BX1 g5190(.AN (n_56), .B (n_41), .Y (n_177));
   NOR2BX1 g5191(.AN (n_6), .B (addr[0]), .Y (n_178));
 endmodule
+```
+---
 
 ![FIFO_BINARY](https://github.com/user-attachments/assets/aa86cd9f-c3cf-4bf1-bb8f-00c6f69fc328)
 
@@ -1485,6 +1505,8 @@ endmodule
 
 2:SDC file
 
+---
+```
 # ####################################################################
 
 #  Created by Genus(TM) Synthesis Solution 21.14-s082_1 on Thu Oct 30 14:32:33 IST 2025
@@ -1544,6 +1566,8 @@ set_driving_cell -lib_cell INVX1 -library fast -pin "Y" [get_ports {din[0]}]
 set_clock_uncertainty -setup 0.01 [get_ports clk]
 set_clock_uncertainty -hold 0.01 [get_ports clk]
 
+```
+---
 The SDC (Synopsys Design Constraints) file generated by the Cadence Genus tool is important because it defines the timing, electrical, and operating conditions under which your SRAM design must function correctly. It specifies the clock characteristics such as period, waveform, uncertainty, and transition, which guide the synthesis tool to optimize the logic so that all paths meet setup and hold timing requirements. The file also sets input and output delays to model how signals interact with external components, ensuring realistic timing analysis. Constraints like driving cell definitions and maximum fanout help the tool estimate signal slew and loading accurately, leading to better gate sizing and buffering decisions. Additionally, clock gating checks and unit definitions ensure proper handling of low-power techniques and consistent interpretation of timing values across the design flow. Overall, this SDC acts as a contract between the design and the tools, enabling timing-driven synthesis and ensuring that the resulting netlist can achieve timing closure during place-and-route and operate reliably in silicon.
 
 ---
@@ -1579,6 +1603,10 @@ In Cadence Innovus, there are two main ways to use the tool: through scripting (
 "/home/install/FOUNDRY/digital/45nm/LIBS/lef/pads.lef"
 "/home/install/FOUNDRY/digital/45nm/LIBS/lef/pdkIO.lef"
 this is the padio file design requried for our design.
+
+---
+```
+
 (globals 
    version=1
    io_order = clockwise
@@ -1620,6 +1648,8 @@ this is the padio file design requried for our design.
     )
 
 )
+```
+---
 
 ###  Static Timing Analysis (MMMC)
 we must setup the mmmc analysis  to setup the 
