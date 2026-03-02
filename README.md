@@ -1729,6 +1729,10 @@ DRC checks confirm compliance with manufacturing rules.
 ---
 
 ## 👤 Author
+---
 
-Bhukya Tulasi Ram
-M.Tech VLSI AND EMBEDDED SYSTEM Design
+## Bhukya Tulasi Ram
+## M.Tech VLSI AND EMBEDDED SYSTEM Design
+
+---
+
