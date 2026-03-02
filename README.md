@@ -55,7 +55,7 @@ The FIFO uses binary pointers with an extra MSB to detect wrap-around and genera
 The FULL condition is detected when the next write pointer equals the read pointer with the MSB inverted, indicating the buffer is full. The EMPTY condition occurs when write and read pointers are equal, indicating no data is available.
 
 After functional verification in Vivado using a task-based testbench, switching activity is captured through SAIF generation to enable realistic power analysis in downstream synthesis tools.
-
+``
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
@@ -168,6 +168,7 @@ module fifo(
     end
 
 endmodule
+```
 
 A task-based Verilog testbench is developed in Vivado to verify the functionality of the 16×8 synchronous FIFO under different operating conditions. The testbench instantiates the FIFO DUT and generates a periodic clock along with an active-low reset sequence to initialize the design.
 
