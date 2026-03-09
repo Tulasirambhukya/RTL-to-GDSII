@@ -1,0 +1,21 @@
+    Hinst Name       Module Name          Inst Count           Total Area
+----------------------------------------------------------------------
+fifo                                             338             1306.089
+ RC_CG_HIER_INST0    RC_CG_MOD                     1                6.498
+ RC_CG_HIER_INST1    RC_CG_MOD_1                   1                6.498
+ RC_CG_HIER_INST10   RC_CG_MOD_10                  1                6.498
+ RC_CG_HIER_INST11   RC_CG_MOD_11                  1                6.498
+ RC_CG_HIER_INST12   RC_CG_MOD_12                  1                6.498
+ RC_CG_HIER_INST13   RC_CG_MOD_13                  1                6.498
+ RC_CG_HIER_INST14   RC_CG_MOD_14                  1                6.498
+ RC_CG_HIER_INST15   RC_CG_MOD_15                  1                6.498
+ RC_CG_HIER_INST16   RC_CG_MOD_16                  1                6.498
+ RC_CG_HIER_INST17   RC_CG_MOD_17                  1                6.498
+ RC_CG_HIER_INST2    RC_CG_MOD_2                   1                6.498
+ RC_CG_HIER_INST3    RC_CG_MOD_3                   1                6.498
+ RC_CG_HIER_INST4    RC_CG_MOD_4                   1                6.498
+ RC_CG_HIER_INST5    RC_CG_MOD_5                   1                6.498
+ RC_CG_HIER_INST6    RC_CG_MOD_6                   1                6.498
+ RC_CG_HIER_INST7    RC_CG_MOD_7                   1                6.498
+ RC_CG_HIER_INST8    RC_CG_MOD_8                   1                6.498
+ RC_CG_HIER_INST9    RC_CG_MOD_9                   1                6.498
