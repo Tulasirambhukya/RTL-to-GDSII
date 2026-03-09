@@ -1732,7 +1732,7 @@ DRC checks confirm compliance with manufacturing rules.
 ---
 
 ## Bhukya Tulasi Ram
-## M.Tech VLSI AND EMBEDDED SYSTEM Design
+## M.Tech VLSI AND EMBEDDED SYSTEM Design(manit)
 
 ---
 
