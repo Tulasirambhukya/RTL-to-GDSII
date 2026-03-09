@@ -1,0 +1,58 @@
+Clock tree timing engine global stage delay update for slow_delay:setup.late...
+Clock tree timing engine global stage delay update for slow_delay:setup.late done. (took cpu=0:00:00.0 real=0:00:00.0)
+
+Section 1: Constraint summary
+=============================
+
+Transition constraints are active in the following delay corners:
+
+slow_delay:setup.late
+
+Cap constraints are active in the following delay corners:
+
+slow_delay:setup.late
+
+Transition constraint summary:
+
+---------------------------------------------------------------------------------------------
+Delay corner                       Target (ns)    Num pins    Target source     Clock tree(s)
+---------------------------------------------------------------------------------------------
+slow_delay:setup.late (primary)         -            -              -                 -
+               -                      0.100         152       auto extracted    all
+---------------------------------------------------------------------------------------------
+
+Capacitance constraint summary:
+
+-------------------------------------------------------------------------------------------------------
+Delay corner                       Limit (pF)    Num nets    Target source                Clock tree(s)
+-------------------------------------------------------------------------------------------------------
+slow_delay:setup.late (primary)        -            -                    -                      -
+               -                     0.267          1        library_or_sdc_constraint    all
+               -                     2.589          2        library_or_sdc_constraint    all
+-------------------------------------------------------------------------------------------------------
+
+Section 2: Violation summary
+============================
+
+DRV breakdown counts across nets and DRV types:
+
+--------------------------------------------------------------
+Applicable net DRV(s)       all    transition    cap    length
+--------------------------------------------------------------
+total violations by type     0         0          0       0
+--------------------------------------------------------------
+
+Transition violation histogram for slow_delay:setup.late (primary):
+-------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+Net Type    Target    Count    Average    Std. Dev.    Min      Max      Distribution                                                              Over Target
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+Trunk       0.100       1       0.004       0.000      0.004    0.004    {1 <= 0.060ns, 0 <= 0.080ns, 0 <= 0.090ns, 0 <= 0.095ns, 0 <= 0.100ns}         -
+Leaf        0.100       2       0.082       0.000      0.082    0.083    {0 <= 0.060ns, 0 <= 0.080ns, 2 <= 0.090ns, 0 <= 0.095ns, 0 <= 0.100ns}         -
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Section 3: Top 0 of 0 violations
+================================
+
+
