@@ -36,8 +36,15 @@ if {[file exists $CONSTRAINTS]} {
 } else {
     puts "No SDC found"
 }
+# use only when you want to perform the re -timing based synthesis
+#set_db [current_design] .retime true
+
 
 # ---- 5. Synthesis ----
+set_db syn_generic_effort high
+set_db syn_map_effort high
+set_db syn_opt_effort high
+
 syn_gen
 syn_map
 syn_opt
