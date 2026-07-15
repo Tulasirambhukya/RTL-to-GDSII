@@ -148,6 +148,9 @@ Generated files:
 * SDC file
 * Timing reports
 * Power reports
+<img width="984" height="641" alt="Screenshot 2026-02-18 211658" src="https://github.com/user-attachments/assets/c016034f-42da-4e25-909c-ce369021f3bc" />
+
+
 
 ---
 
@@ -188,6 +191,7 @@ verify
 ## 3.5 LEC Results
 
 The verification completed successfully with no mismatches.
+<img width="1387" height="1080" alt="Screenshot 2026-06-09 113516" src="https://github.com/user-attachments/assets/a5ff5d1d-d277-43ea-9400-2ce432dfda12" />
 
 ---
 
@@ -228,6 +232,9 @@ Macro placement guidelines:
 * Place macros near related logic
 * Apply halo margins
 
+<img width="1920" height="1080" alt="floorplanning" src="https://github.com/user-attachments/assets/d8ef543b-e672-4f13-a3d2-c7a922ae72a4" />
+
+
 ## 4.4 Power Planning
 
 Power planning ensures reliable power distribution.
@@ -253,6 +260,9 @@ The floorplan achieved:
 * Proper utilization
 * Reduced congestion
 * Efficient routing resources
+
+<img width="1920" height="1080" alt="power planning" src="https://github.com/user-attachments/assets/c33dfe9a-8835-43d8-8a7b-50a8612d1019" />
+
 
 ---
 
@@ -310,6 +320,9 @@ Placement achieved:
 * Reduced congestion
 * Improved timing
 
+<img width="1920" height="1080" alt="placement of std cell" src="https://github.com/user-attachments/assets/ca9c66ef-c119-4ff3-aec2-c69e06511064" />
+
+
 ---
 
 # CLOCK TREE SYNTHESIS
@@ -356,6 +369,10 @@ The CTS stage achieved:
 * Reduced skew
 * Improved timing closure
 
+
+<img width="1920" height="1080" alt="Screenshot 2026-05-30 151913" src="https://github.com/user-attachments/assets/360f39bf-9312-4713-b746-0bc96075e255" />
+
+
 ---
 
 # ROUTING AND POST-ROUTE OPTIMIZATION
@@ -391,6 +408,9 @@ Optimization techniques:
 * Net shielding
 * Timing ECO
 * Wire optimization
+
+<img width="1920" height="1080" alt="final fifo design" src="https://github.com/user-attachments/assets/0e5ebfb0-f39f-484f-826c-a3f1438e4bc0" />
+
 
 ## 7.5 Signal Integrity
 
@@ -551,6 +571,9 @@ Achieved:
 * Positive hold slack
 * Reduced transition violations
 * Reduced capacitance violations
+
+<img width="1917" height="882" alt="Screenshot 2026-07-05 134741" src="https://github.com/user-attachments/assets/8612b2e6-ccf8-4ec1-9c79-7074ea8f4425" />
+
 
 ## 11.3 Area Results
 
